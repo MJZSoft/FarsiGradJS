@@ -1,4 +1,4 @@
-/*
+/**
  Author: Mahdi Jaberzadeh Ansari
  Email: mahdijaberzadehansari@yahoo.co.uk
  Library: FarsiGradJS
