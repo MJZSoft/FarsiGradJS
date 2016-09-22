@@ -4,17 +4,22 @@
  Library: FarsiGradJS
  Description: By using this library you can create gradient colored text in Persian (Farsi) or Arabic sentences.
  Licence: MIT Licence
- Version 1.0.0
+ Version 1.0.5
  Date: 22 Sep 2016
+ call this method like this:
+ var html = FarsiGradientText(str, '#00FF00', '#FFFFFF', '#FF0000');
+ Please note the number of colors are not limited in this new version and also you have to pass colors as text but with
+ #(Sharp) character to specify that this color is a hex number.
  */
 // JavaScript Document
-function FarsiGradientText(Text, StartColor, EndColor) {
+var FarsiGradientText = function(Text){
     "use strict";
     var flagJump = false;
-    var fromColor = ((typeof StartColor !== 'undefined') && StartColor != null) ? StartColor : "#000000";
-    var toColor = ((typeof EndColor !== 'undefined') && EndColor != null) ? EndColor : "#FF0000";
-
-    function PrintableChar(str, index) {
+    var colors = new Array();
+    for (var i = 1; i < arguments.length; i++) {
+        colors[i - 1] = arguments[i];
+    }
+    var PrintableChar = function (str, index) {
         if (!Array.prototype.indexOf) {
             Array.prototype.indexOf = function (obj, start) {
                 for (var i = (start || 0), j = this.length; i < j; i++) {
@@ -25,18 +30,14 @@ function FarsiGradientText(Text, StartColor, EndColor) {
                 return -1;
             }
         }
-
         var NoneCountinuesLetters = new Array('\u0622'/*آ*/, '\u0627'/*ا*/, '\u0671'/*ٱ*/, '\u0623'/*أ*/, '\u0625'/*إ*/, '\u0624'/*ؤ*/, '\u0621'/*ء*/,
             '\u062F'/*د*/, '\u0630'/*ذ*/,
             '\u0631'/*ر*/, '\u0632'/*ز*/, '\u0698'/*ژ*/,
             '\u0648'/*و*/
         );
         var FaAlefLetters = new Array('\u0622'/*آ*/, '\u0627'/*ا*/, '\u0623'/*أ*/, '\u0625'/*إ*/);
-
         var WhiteSpaces = new Array('\u200C'/*ZWNJ*/, '\u0020'/*Space*/, '\u00A0'/*No-break space*/, '\u0009'/*Character tabulation*/, '\u000A'/*Line feed (lf)*/, '\u000B'/*Line tabulation*/, '\u000D'/*Carriage return (cr)*/);
-
         var FaSigns = new Array('\u064B'/*(ـً)*/ /*تنوين نصب*/, '\u064C'/*(ـٌ)*/ /*تنوين رفع*/, '\u064D'/*(ـٍ)*/ /*تنوين جر*/, '\u064E'/*(ـَ)*/ /*فتحه*/, '\u064F'/*(ـُ)*/ /*ضمه*/, '\u0650'/*(ـِ)*/ /*كسره*/, '\u0651'/*(ـّ)*/ /*تشديد*/, '\u0652'/*(ـْ)*/ /*ساكن*/);
-
         var FaRealLetters = new Array('\u0622'/*آ*/, '\u0627'/*ا*/, '\u0671'/*ٱ*/, '\u0623'/*أ*/, '\u0625'/*إ*/, '\u0624'/*ؤ*/, '\u0626'/*ئ*/,
             '\u0628'/*ب*/, '\u067E'/*پ*/, '\u062A'/*ت*/, '\u062B'/*ث*/,
             '\u062C'/*ج*/, '\u0686'/*چ*/, '\u062D'/*ح*/, '\u062E'/*خ*/,
@@ -55,7 +56,6 @@ function FarsiGradientText(Text, StartColor, EndColor) {
             '\u0640'/*ـ*/ /*كشيدگي حروف يا خط كرسي*/,
             '\u200D'/*ZWJ*/
         );
-
         var SeparateFaLetters = new Array('\uFE81'/*ﺁ*/, '\uFE8D'/*ﺍ*/, '\uFB50'/*ﭐ*/, '\uFE83'/*ﺃ*/, '\uFE87'/*ﺇ*/, '\uFE85'/*ﺅ*/, '\uFE89'/*ﺉ*/,
             '\uFE8F'/*ﺏ*/, '\uFB56'/*ﭖ*/, '\uFE95'/*ﺕ*/, '\uFE99'/*ﺙ*/,
             '\uFE9D'/*ﺝ*/, '\uFB7A'/*ﭺ*/, '\uFEA1'/*ﺡ*/, '\uFEA5'/*ﺥ*/,
@@ -74,7 +74,6 @@ function FarsiGradientText(Text, StartColor, EndColor) {
             '\u0640'/*ـ*/ /*كشيدگي حروف يا خط كرسي*/,
             '\u200D'/*ZWJ*/
         );
-
         var FirstFaLetters = new Array('\uFE81'/*ﺁ*/, '\uFE8D'/*ﺍ*/, '\uFB50'/*ﭐ*/, '\uFE83'/*ﺃ*/, '\uFE87'/*ﺇ*/, '\uFE85'/*ﺅ*/, '\uFE8B'/*ﺋ*/,
             '\uFE91'/*ﺑ*/, '\uFB58'/*ﭘ*/, '\uFE97'/*ﺗ*/, '\uFE9B'/*ﺛ*/,
             '\uFE9F'/*ﺟ*/, '\uFB7C'/*ﭼ*/, '\uFEA3'/*ﺣ*/, '\uFEA7'/*ﺧ*/,
@@ -92,7 +91,6 @@ function FarsiGradientText(Text, StartColor, EndColor) {
             '\u0640'/*ـ*/ /*كشيدگي حروف يا خط كرسي*/,
             '\u200D'/*ZWJ*/
         );
-
         var MiddleFaLetters = new Array('\uFE82'/*ﺂ*/, '\uFE8E'/*ﺎ*/, '\uFB51'/*ﭑ*/, '\uFE84'/*ﺄ*/, '\uFE88'/*ﺈ*/, '\uFE86'/*ﺆ*/, '\uFE8C'/*ﺌ*/,
             '\uFE92'/*ﺒ*/, '\uFB59'/*ﭙ*/, '\uFE98'/*ﺘ*/, '\uFE9C'/*ﺜ*/,
             '\uFEA0'/*ﺠ*/, '\uFB7D'/*ﭽ*/, '\uFEA4'/*ﺤ*/, '\uFEA8'/*ﺨ*/,
@@ -110,7 +108,6 @@ function FarsiGradientText(Text, StartColor, EndColor) {
             '\u0640'/*ـ*/ /*كشيدگي حروف يا خط كرسي*/,
             '\u200D'/*ZWJ*/
         );
-
         var EndFaLetters = new Array('\uFE82'/*ﺂ*/, '\uFE8E'/*ﺎ*/, '\uFB51'/*ﭑ*/, '\uFE84'/*ﺄ*/, '\uFE88'/*ﺈ*/, '\uFE86'/*ﺆ*/, '\uFE8A'/*ﺊ*/,
             '\uFE90'/*ﺐ*/, '\uFB57'/*ﭗ*/, '\uFE96'/*ﺖ*/, '\uFE9A'/*ﺚ*/,
             '\uFE9E'/*ﺞ*/, '\uFB7B'/*ﭻ*/, '\uFEA2'/*ﺢ*/, '\uFEA6'/*ﺦ*/,
@@ -128,24 +125,20 @@ function FarsiGradientText(Text, StartColor, EndColor) {
             '\u0640'/*ـ*/ /*كشيدگي حروف يا خط كرسي*/,
             '\u200D'/*ZWJ*/
         );
-
         var prevChar = null, currChar = null, nextChar = null;
         var j = index - 1;
         if (index > 0) {
             prevChar = str[j];
         }
         // Passes Erab to previous letter
-
         while (FaSigns.indexOf(prevChar) >= 0 && prevChar != null) {
             if (j > 1)
                 prevChar = str[--j];
             else
                 prevChar = null;
         }
-        ///////
         if (index < str.length)
             currChar = str[index];
-        ///////
         if (index < str.length - 1)
             nextChar = str[index + 1];
         // Passes Erab to next letter
@@ -156,7 +149,6 @@ function FarsiGradientText(Text, StartColor, EndColor) {
             else
                 nextChar = null;
         }
-        ///////
         if (FaRealLetters.indexOf(currChar) < 0)
             return currChar;
         else {
@@ -220,9 +212,7 @@ function FarsiGradientText(Text, StartColor, EndColor) {
                 }
             }
         }
-
-    }
-
+    };
     //Generate Hex for HTML
     var hexToStr = function (n) {
         n = n.toString(16);
@@ -245,49 +235,64 @@ function FarsiGradientText(Text, StartColor, EndColor) {
         hex = parseInt("0x" + hex, 16);
         return hex;
     };
-
+    // Gives the indexes of spilit points
+    var splitPoints = function (length, n) {
+        if (n <= 0)
+            return [];
+        var rest = length % n,
+            restUsed = rest,
+            partLength = Math.floor(length / n),
+            result = [];
+        for (var i = 0; i < length; i += partLength) {
+            var end = partLength + i,
+                add = false;
+            if (rest !== 0 && restUsed) {
+                end++;
+                restUsed--;
+                add = true;
+            }
+            if (end > 0)
+                result.push([i + 1, end]);
+            if (add) {
+                i++;
+            }
+        }
+        return result;
+    };
+    // Exception area
     if (typeof Text !== 'string')
         throw 'The first parameter should be a string';
+    if (colors.length < 1)
+        throw 'At least one color must be provided via arguments';
+    // Start of coloring
+    var result = "<span style='direction:rtl;' data-text = \"" + Text.replace(/"/g, '&quot;') + "\" >";
+    var slices = splitPoints(Text.length, colors.length - 1);
+    if (slices.length == 0) {
+        result += "<span style='color:" + colors[0] + ";'>";
+        result += Text;
+        result += "</span>";
+    } else {
+        for (var j = 0; j < slices.length; j++) {
+            var startIndex = slices[j][0] - 1;
+            var endIndex = slices[j][1] - 1;
+            var steps = endIndex - startIndex + 1;
+            var startHex = strToHex(colors[j]);
+            var endHex = strToHex(colors[j + 1]);
 
-    var steps = Text.length;
-    var startHex = strToHex(fromColor);
-    var endHex = strToHex(toColor);
-
-    var result = "<span style='direction:rtl;' data-text = \"" + Text.replace(/"/g, '&quot;') + "\" > ";
-
-    for (var i = 0; i < steps; i++) {
-        if (!flagJump) {
-            var ratio = i / steps;
-            var nowColor = fadeHex(startHex, endHex, ratio);
-            var color = hexToStr(nowColor);
-            var char = Text[i];
-            result += "<span style='color:" + color + ";'>";
-            result += PrintableChar(Text, i);
-            result += "</span>";
+            for (var i = startIndex, k = 1; i < Text.length && i <= endIndex; i++, k++) {
+                if (!flagJump) {
+                    var ratio = k / steps;
+                    var nowColor = fadeHex(startHex, endHex, ratio);
+                    var color = hexToStr(nowColor);
+                    result += "<span style='color:" + color + ";'>";
+                    result += PrintableChar(Text, i);
+                    result += "</span>";
+                }
+                else
+                    flagJump = false;
+            }
         }
-        else
-            flagJump = false;
     }
     result += '</span>';
     return result;
-}
-
-
-
-
-
-
-
-
-
-
-						 
-
-
-
-
-
-
-
-
-
+};
