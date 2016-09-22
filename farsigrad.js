@@ -9,7 +9,10 @@
  */
 // JavaScript Document
 function FarsiGradientText(Text, StartColor, EndColor) {
+    "use strict";
     var flagJump = false;
+    var fromColor = ((typeof StartColor !== 'undefined') && StartColor != null) ? StartColor : "#000000";
+    var toColor = ((typeof EndColor !== 'undefined') && EndColor != null) ? EndColor : "#FF0000";
 
     function PrintableChar(str, index) {
         if (!Array.prototype.indexOf) {
@@ -227,7 +230,7 @@ function FarsiGradientText(Text, StartColor, EndColor) {
         return '#000000'.substr(0, 7 - n.length) + n;
     };
     //Next color    
-    fadeHex = function (hex, hex2, ratio) {
+    var fadeHex = function (hex, hex2, ratio) {
         var r = hex >> 16;
         var g = hex >> 8 & 0xFF;
         var b = hex & 0xFF;
@@ -237,7 +240,7 @@ function FarsiGradientText(Text, StartColor, EndColor) {
         return (r << 16 | g << 8 | b);
     };
     //Generate Hex for calculate
-    strToHex = function (str) {
+    var strToHex = function (str) {
         var hex = (str.indexOf("#") === 0) ? str.substring(1) : str;
         hex = parseInt("0x" + hex, 16);
         return hex;
@@ -247,14 +250,10 @@ function FarsiGradientText(Text, StartColor, EndColor) {
         throw 'The first parameter should be a string';
 
     var steps = Text.length;
+    var startHex = strToHex(fromColor);
+    var endHex = strToHex(toColor);
 
-    var fromColor = ((typeof StartColor !== 'undefined') && StartColor != null) ? StartColor : "#000000";
-    startHex = strToHex(fromColor);
-
-    var toColor = ((typeof EndColor !== 'undefined') && EndColor != null) ? EndColor : "#FF0000";
-    endHex = strToHex(toColor);
-
-    var result = "<span style='direction:rtl; '>";
+    var result = "<span style='direction:rtl;' data-text = \"" + Text.replace(/"/g, '&quot;') + "\" > ";
 
     for (var i = 0; i < steps; i++) {
         if (!flagJump) {
