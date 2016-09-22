@@ -12,4 +12,4 @@ If someone tries to make a Persian or Arabic text gradient with this kind of ser
 
 This library can solve this problem by generating suitable gradient texts.
 
-If you want to see a Demo of this library you can download the whole project and simply run the index.html file or you can visit the following address: https://jsfiddle.net/mjza/c6gsna2j/4/
+If you want to see a Demo of this library you can download the whole project and simply run the index.html file or you can visit the following address: https://jsfiddle.net/mjza/c6gsna2j/
