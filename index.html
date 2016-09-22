@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test for Persian (Farsi) gradient library.</title>
+    <script type="text/javascript" src="farsigrad.js"></script>
+    <style>
+        h1{
+          font-size: 72px;
+        }
+        h1.cssGradient {
+            background: -webkit-linear-gradient(#00ff00, #fff, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        body{
+            background-color: #A9A9A9;
+            font-family: Tahoma;
+        }
+    </style>
+</head>
+<body>
+        <div>
+            <h1>
+
+                <span style="color:#00ff00;">F</span><span style="color:#1cff1c;">a</span><span style="color:#39ff39;">r</span><span style="color:#55ff55;">s</span><span style="color:#71ff71;">i</span><span style="color:#8eff8e;"> </span><span style="color:#aaffaa;">G</span><span style="color:#c6ffc6;">r</span><span style="color:#e3ffe3;">a</span><span style="color:#ffffff;">d</span><span style="color:#ffe3e3;">i</span><span style="color:#ffc6c6;">e</span><span style="color:#ffaaaa;">n</span><span style="color:#ff8e8e;">t</span><span style="color:#ff7171;"> </span><span style="color:#ff5555;">T</span><span style="color:#ff3939;">e</span><span style="color:#ff1c1c;">x</span><span style="color:#ff0000;">t</span>
+
+            </h1>
+
+            <p>Making gradient text sometimes is hectic. While it is supported in some new browsers there are some other
+                older browsers that cannot create gradient text correctly.<br>
+                Thus there are some online services like <a href="http://patorjk.com/text-color-fader/">http://patorjk.com/text-color-fader/</a> that receive a sample text
+                and create a series of SPAN tags with different text colors.<br>
+                This kind of services work fine for latin text that their characters are separated naturally. For example
+                The header of this page was created with this technique.<br>
+                In the following there is 2 sentences. The first one was created with some css technique that at the
+                moment of writing this text just supported in Google Chrome and Edge browsers.<br>
+                Therefore if you see this text as a simple white text the reason is that is not supported with your browser.<br>
+                The second try was made by using online services and it shows how this services cannot create a correct
+                right to left sentances with their technique.<br>
+                The third try was made with the library that I created and it generate a correct gradient sentence
+                for a right to left sentence.
+                <br>
+                You can find a sample of correct usage of this library in the example inside of this page.
+            </p>
+
+        </div>
+        <br/>
+        <div>
+            <hr>
+            <h1 class="cssGradient">خلیج همیشه فارس</h1>
+        </div>
+        <div>
+            <hr>
+            <h1>
+                <span style="color:#00ff00;">خ</span><span style="color:#24ff24;">ل</span><span style="color:#49ff49;">ی</span><span style="color:#6dff6d;">ج</span><span style="color:#92ff92;"> </span><span style="color:#b6ffb6;">ه</span><span style="color:#dbffdb;">م</span><span style="color:#ffffff;">ی</span><span style="color:#ffdbdb;">ش</span><span style="color:#ffb6b6;">ه</span><span style="color:#ff9292;"> </span><span style="color:#ff6d6d;">ف</span><span style="color:#ff4949;">ا</span><span style="color:#ff2424;">ر</span><span style="color:#ff0000;">س</span>
+            </h1>
+        </div>
+        <div>
+            <hr>
+            <h1>
+                <script type="text/javascript">
+                    var str = 'خلیج همیشه فارس';
+                    var html = FarsiGradientText(str, '#FFFFFF', '#00FF00');
+                    document.write(html);
+                </script>
+            </h1>
+        </div>
+</body>
+</html>
