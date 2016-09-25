@@ -3,7 +3,7 @@
 
 
 
-FarsiGradJS is a JavaScript library for making Persian (Farsi) or Arabic gradient colored text in web pages or any other technologies that supports HTML syntaxt. 
+FarsiGradJS is a JavaScript library for making Persian (Farsi) or Arabic gradient colored text in web pages or any other technologies that supports HTML syntax. 
 
 You can see a sample output of this library in the last line of the following picture:
 
